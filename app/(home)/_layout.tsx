@@ -9,7 +9,7 @@ function TabBarIcon(props: {
 }) {
   return (
     <AntDesign
-      size={28}
+      size={24}
       style={{ marginBottom: -3 }}
       {...props}
     />
@@ -25,6 +25,7 @@ export default function TabLayout() {
         tabBarShowLabel: false,
 
         headerShown: false,
+
         // headerStyle: {
         //   backgroundColor: "#fff",
         // },
@@ -32,6 +33,7 @@ export default function TabLayout() {
         // headerTitleStyle: {
         //   fontFamily: "Poppins_Black",
         // },
+
         tabBarButton: (props) => (
           <Pressable
             {...props}

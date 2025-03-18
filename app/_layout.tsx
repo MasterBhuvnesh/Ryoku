@@ -1,7 +1,10 @@
+import { tokenCache } from "@/cache";
+import { ClerkProvider, ClerkLoaded } from "@clerk/clerk-expo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
@@ -41,12 +44,29 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
+  const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+
+  if (!publishableKey) {
+    throw new Error("Add EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env");
+  }
   return (
-    <Stack>
-      <Stack.Screen
-        name="(home)"
-        options={{ headerShown: false }}
-      />
-    </Stack>
+    <ClerkProvider
+      tokenCache={tokenCache}
+      publishableKey={publishableKey}
+    >
+      <ClerkLoaded>
+        <StatusBar style="dark" />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="(home)"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="(auth)"
+            options={{ headerShown: false }}
+          />
+        </Stack>
+      </ClerkLoaded>
+    </ClerkProvider>
   );
 }

@@ -10,6 +10,8 @@ export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp();
   const router = useRouter();
 
+  const [firstName, setFirstName] = React.useState("");
+  const [lastName, setLastName] = React.useState("");
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [pendingVerification, setPendingVerification] = React.useState(false);
@@ -18,7 +20,7 @@ export default function SignUpScreen() {
   const onSignUpPress = async () => {
     if (!isLoaded) return;
     try {
-      await signUp.create({ emailAddress, password });
+      await signUp.create({ emailAddress, password, firstName, lastName });
       await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
       setPendingVerification(true);
     } catch (err) {
@@ -69,6 +71,21 @@ export default function SignUpScreen() {
             <DiscordAuth />
             <GithubAuth />
           </View>
+          {/* First Name Input */}
+          <TextInput
+            style={styles.input}
+            value={firstName}
+            placeholder="Enter first name"
+            onChangeText={(firstName) => setFirstName(firstName)}
+          />
+
+          {/* Last Name Input */}
+          <TextInput
+            style={styles.input}
+            value={lastName}
+            placeholder="Enter last name"
+            onChangeText={(lastName) => setLastName(lastName)}
+          />
           <TextInput
             style={styles.input}
             autoCapitalize="none"

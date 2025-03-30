@@ -11,5 +11,5 @@ npm install expo-image
 npm install expo-image-picker expo-document-picker expo-image-manipulator
 ```
 
-## Important Note
+## Important Note if you want username
 - If you configure a username, signing in with Google will not work.
